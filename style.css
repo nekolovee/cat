@@ -1,0 +1,242 @@
+/* style.css - Matrix Theme */
+
+/* --- Base & Variables --- */
+:root {
+  --matrix-green: #00ff41; /* Brighter green */
+  --matrix-green-darker: #00cc34;
+  --matrix-green-darkest: #008820;
+  --matrix-red: #ff0000; /* For glitch effect */
+  --matrix-blue: #00ffff; /* For glitch effect */
+  --matrix-bg: #000000;
+  --text-glow: 0 0 5px var(--matrix-green), 0 0 8px var(--matrix-green-darker);
+  --font-family-matrix: 'VT323', monospace;
+}
+
+/* --- Reset & Body Styling --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--matrix-bg);
+  color: var(--matrix-green);
+  font-family: var(--font-family-matrix);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Subtle scanline effect */
+  background-image: linear-gradient(rgba(0, 255, 0, 0.05) 50%, transparent 50%);
+  background-size: 100% 3px;
+}
+
+/* --- Container --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+/* --- Headings --- */
+h1.glitch {
+  color: var(--matrix-green);
+  text-align: center;
+  font-size: 3.5em; /* Larger size for main title */
+  text-shadow: var(--text-glow);
+  letter-spacing: 5px; /* Increased letter spacing */
+  margin-bottom: 0.1em; /* Reduced space below h1 */
+  position: relative; /* Needed for pseudo-elements */
+  animation: flicker 1.5s infinite alternate; /* Keep flicker */
+  text-transform: uppercase; /* Uppercase */
+}
+
+/* Glitch Effect using Pseudo-elements */
+h1.glitch::before,
+h1.glitch::after {
+  content: attr(data-text); /* Use text from data-text attribute */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--matrix-bg); /* Match body background */
+  overflow: hidden;
+}
+
+h1.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--matrix-red); /* Red shadow */
+  /* Animation */
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+h1.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--matrix-blue), 2px 2px var(--matrix-red); /* Blue and Red shadow */
+   /* Animation */
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+/* Glitch Keyframes */
+@keyframes glitch-anim-1 {
+0% { clip-path: inset(5% 0 90% 0); }
+10% { clip-path: inset(75% 0 5% 0); }
+20% { clip-path: inset(20% 0 45% 0); }
+30% { clip-path: inset(90% 0 2% 0); }
+40% { clip-path: inset(40% 0 30% 0); }
+50% { clip-path: inset(65% 0 10% 0); }
+60% { clip-path: inset(15% 0 70% 0); }
+70% { clip-path: inset(80% 0 5% 0); }
+80% { clip-path: inset(35% 0 50% 0); }
+90% { clip-path: inset(95% 0 1% 0); }
+100% { clip-path: inset(55% 0 25% 0); }
+}
+
+@keyframes glitch-anim-2 {
+0% { clip-path: inset(80% 0 10% 0); }
+10% { clip-path: inset(10% 0 85% 0); }
+20% { clip-path: inset(40% 0 35% 0); }
+30% { clip-path: inset(5% 0 90% 0); }
+40% { clip-path: inset(60% 0 20% 0); }
+50% { clip-path: inset(85% 0 5% 0); }
+60% { clip-path: inset(25% 0 60% 0); }
+70% { clip-path: inset(90% 0 3% 0); }
+80% { clip-path: inset(50% 0 40% 0); }
+90% { clip-path: inset(5% 0 75% 0); }
+100% { clip-path: inset(70% 0 15% 0); }
+}
+
+
+/* Flicker Animation (kept from previous version) */
+@keyframes flicker {
+0%, 18%, 22%, 25%, 53%, 57%, 100% {
+  text-shadow:
+    0 0 4px var(--matrix-green),
+    0 0 11px var(--matrix-green),
+    0 0 19px var(--matrix-green-darker),
+    0 0 40px var(--matrix-green-darkest),
+    0 0 80px var(--matrix-bg),
+    0 0 90px var(--matrix-bg),
+    0 0 100px var(--matrix-bg),
+    0 0 150px var(--matrix-bg);
+  opacity: 1;
+}
+20%, 24%, 55% {
+  text-shadow: none;
+  opacity: 0.8;
+}
+}
+
+/* Subtitle Styling */
+h2.subtitle {
+  color: var(--matrix-green-darker); /* Slightly darker green */
+  text-align: center;
+  font-size: 1.5em; /* Smaller than h1 */
+  margin-bottom: 1.5em; /* Space below subtitle */
+  letter-spacing: 2px;
+  text-shadow: 0 0 3px var(--matrix-green-darkest);
+}
+
+
+/* --- Data Display Area (Grid Layout) --- */
+#data-display {
+  border: 1px solid var(--matrix-green-darkest);
+  padding: 1em;
+  background-color: rgba(0, 10, 0, 0.6);
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+  display: grid;
+  gap: 1.5em;
+  grid-template-columns: 1fr; /* Default 1 column */
+}
+
+/* --- Data Sections (Grid Items) --- */
+.data-section {
+  border-left: 2px solid var(--matrix-green-darker);
+  padding-left: 1em;
+  word-wrap: break-word;
+}
+
+.data-section h3 {
+  color: var(--matrix-green);
+  margin-bottom: 0.5em;
+  font-size: 1.3em;
+  text-shadow: 0 0 3px var(--matrix-green);
+  letter-spacing: 1px;
+}
+
+.data-section p,
+.data-section li {
+  color: var(--matrix-green-darker);
+  font-size: 1em;
+  margin-bottom: 0.4em;
+}
+
+.data-section strong {
+  color: #ffffff;
+  margin-right: 5px;
+}
+
+.data-section ul {
+  list-style: none;
+  padding-left: 5px;
+}
+
+.data-section li::before {
+  content: "> ";
+  color: var(--matrix-green);
+  margin-right: 5px;
+}
+
+.data-section img {
+  background-color: #ddd;
+  margin-top: 5px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--matrix-green-darkest);
+}
+
+/* Loading Message */
+.loading-message {
+  font-size: 1.2em;
+  text-align: center;
+  padding: 2em;
+  color: var(--matrix-green);
+  text-shadow: var(--text-glow);
+  /* Ensure it spans all columns if grid is active */
+  grid-column: 1 / -1;
+}
+
+/* --- Responsive Adjustments --- */
+
+@media (min-width: 600px) {
+  body { font-size: 17px; }
+  .container { padding: 20px; }
+  h1.glitch { font-size: 4.5em; } /* Adjust size */
+  h2.subtitle { font-size: 1.8em; }
+  #data-display {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns */
+      gap: 2em;
+      padding: 1.5em;
+  }
+}
+
+@media (min-width: 992px) {
+  body { font-size: 18px; }
+  .container { padding: 30px; }
+  h1.glitch { font-size: 5.5em; } /* Adjust size */
+  h2.subtitle { font-size: 2em; }
+  #data-display {
+      grid-template-columns: repeat(3, 1fr); /* 3 columns */
+      gap: 2.5em;
+      padding: 2em;
+  }
+   .data-section p,
+   .data-section li { font-size: 0.95em; }
+}
+
+/* Optional: Canvas styles */
+/*
+#matrixCanvas { ... }
+*/
